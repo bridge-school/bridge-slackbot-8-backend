@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 
 // require('dotenv').config()
+=======
+require('dotenv').config()
+>>>>>>> [Feature][201] Fetch channels (#4)
 
 const express = require('express')
 const morgan = require('morgan')

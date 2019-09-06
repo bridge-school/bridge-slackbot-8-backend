@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 .env
+=======
+.env.development.local
+>>>>>>> [Feature][201] Fetch channels (#4)
 node_modules
 *.log
 firebase-credentials.json

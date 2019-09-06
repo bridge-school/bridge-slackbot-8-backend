@@ -1,3 +1,4 @@
+.env.development.local
 node_modules
 *.log
 firebase-credentials.json

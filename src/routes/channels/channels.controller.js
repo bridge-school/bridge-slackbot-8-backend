@@ -1,7 +1,12 @@
 const axios = require('axios')
+const { parametize } = require('../../utils/parametize')
 
 const channelsController = async (req, res, next) => {
-  const params = `exclude_archived=true&types=public_channel&token=${process.env.SLACK_AUTH_TOKEN}`
+  const params = parametize({
+    exclude_archived: true,
+    types: 'public_channel',
+    token: process.env.SLACK_AUTH_TOKEN
+  })
   const url = `https://slack.com/api/conversations.list?${params}`
 
   try {

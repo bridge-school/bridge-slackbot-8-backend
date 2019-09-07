@@ -5,8 +5,8 @@
 const parametize = params =>
   Object.entries(params).reduce((string, [param, value]) => {
     const toInterpolate = `${param}=${value}`
-    !string ? (string += toInterpolate) : (string += `&${toInterpolate}`)
-    return string
+    const prefix = !string ? '' : '&'
+    return (string += prefix + toInterpolate)
   }, '')
 
 module.exports = { parametize }

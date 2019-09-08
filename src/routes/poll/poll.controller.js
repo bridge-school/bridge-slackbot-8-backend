@@ -1,16 +1,17 @@
 const axios = require('axios')
 const { parametize } = require('../../utils/parametize')
 const { block } = require('./block')
-// var question = 'Testing dynamic questions'
 
 const pollController = async (req, res, next) => {
   const params = parametize({
     token: process.env.SLACK_BOT_TOKEN,
+    // get channel from front end
     channel: 'CMUPTGDNG',
     text: 'test',
   })
 
-  // change to right end point
+  // get question from front-end
+  // make this dynamic
   const url = `https://slack.com/api/chat.postMessage?${params}&blocks=[
 	{
 		"type": "section",
@@ -53,6 +54,7 @@ const pollController = async (req, res, next) => {
 	}
 ]`
 
+// check if this is the right way to do post
   try { 
     axios.post(url)
     .then(res => {

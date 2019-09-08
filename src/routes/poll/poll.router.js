@@ -4,7 +4,7 @@ const { pollController } = require('./poll.controller')
 
 const router = express.Router()
 
-router.get('', pollController)
+router.post('', pollController)
 
 module.exports = {
   pollRouter: router

@@ -1,11 +1,11 @@
-var question = 'Testing dynamic questions'
+// var question = 'Testing dynamic questions'
 
 const block = [
 	{
 		"type": "section",
 		"text": {
 			"type": "mrkdwn",
-			"text": `*${question}*`
+			"text": "*test test test*"
 		}
 	},
 	{

@@ -1,11 +1,12 @@
-// var question = 'Testing dynamic questions'
+// this will come from POST / form
+var question = 'This will come from the db'
 
 const block = [
 	{
 		"type": "section",
 		"text": {
 			"type": "mrkdwn",
-			"text": "*test test test*"
+			"text": `*${question}*`
 		}
 	},
 	{

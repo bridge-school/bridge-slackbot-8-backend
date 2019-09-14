@@ -1,4 +1,4 @@
-require('dotenv').config()
+// require('dotenv').config()
 
 const express = require('express')
 const morgan = require('morgan')
@@ -7,6 +7,7 @@ const cors = require('cors')
 const router = require('./api')
 const { logger } = require('./utils/logger')
 const { errorHandler } = require('./middleware/error-handler')
+const bodyParser = require('body-parser');
 
 // Create a new express application instance
 const app = express()
@@ -25,6 +26,7 @@ logger.info('🤖 Initializing middleware')
 // This piece of middleware creates the logs that you see when
 // you hit an endpoint in your terminal. It's here to help you debug.
 app.use(morgan('tiny', { stream: logger.stream }))
+app.use(bodyParser())
 app.use(cors({ origin }))
 app.use('/', router)
 app.use(errorHandler)

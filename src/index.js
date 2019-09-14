@@ -8,6 +8,7 @@ require('dotenv').config()
 const express = require('express')
 const morgan = require('morgan')
 const cors = require('cors')
+const bodyParser = require('body-parser')
 
 const router = require('./api')
 const { logger } = require('./utils/logger')
@@ -17,6 +18,8 @@ const bodyParser = require('body-parser');
 
 // Create a new express application instance
 const app = express()
+
+app.use(bodyParser.json()).use(bodyParser.urlencoded({ extended: true }))
 
 // The port the express app will listen on
 const port = process.env.PORT || 8081

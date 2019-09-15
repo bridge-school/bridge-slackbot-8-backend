@@ -10,7 +10,7 @@ const sendPolltoSlack = async (interactionBlock, channel) => {
     token: process.env.SLACK_AUTH_TOKEN,
     channel: channel,
     text: 'Poll created',
-    blocks: JSON.stringify(interactionBlock)
+    blocks: JSON.stringify(interactionBlock),
   })
 
   const url = `https://slack.com/api/chat.postMessage?${params}`
@@ -30,13 +30,13 @@ const addPollsController = async (req, res) => {
     question: question,
     channel: {
       name: channel_name,
-      id: channel_id
+      id: channel_id,
     },
     response: {
       yes: 0,
       no: 0,
-      maybe: 0
-    }
+      maybe: 0,
+    },
   }
 
   db.collection('polls')
@@ -44,9 +44,7 @@ const addPollsController = async (req, res) => {
     .then(docRef => {
       const block = createSlackBlock(docRef.id, question)
       sendPolltoSlack(block, channel_id) &&
-        res
-          .status(200)
-          .json({ id: docRef.id, message: 'Poll successfully created' })
+        res.status(200).json({ id: docRef.id, message: 'Poll successfully created' })
     })
     .catch(error => {
       res.json({ error })
@@ -61,9 +59,9 @@ const getPollsController = async (req, res) => {
         data: snapshot.docs.map(doc => {
           return {
             id: doc.id,
-            ...doc.data()
+            ...doc.data(),
           }
-        })
+        }),
       })
     })
     .catch(error => {
@@ -75,13 +73,13 @@ const updatePollsController = async (req, res) => {
   let newResponse = {
     yes: 2,
     no: 3,
-    maybe: 1
+    maybe: 1,
   }
 
   db.collection('polls')
     .doc(req.params.id)
     .update({
-      response: newResponse
+      response: newResponse,
     })
     .then(res.status(200).send('Poll successfully updated'))
     .catch(error => res.json({ error }))
@@ -99,5 +97,5 @@ module.exports = {
   addPollsController,
   getPollsController,
   updatePollsController,
-  deletePollsController
+  deletePollsController,
 }

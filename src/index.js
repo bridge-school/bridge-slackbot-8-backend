@@ -1,3 +1,4 @@
+
 // require('dotenv').config()
 
 const express = require('express')
@@ -8,6 +9,7 @@ const router = require('./api')
 const { logger } = require('./utils/logger')
 const { errorHandler } = require('./middleware/error-handler')
 const bodyParser = require('body-parser');
+
 
 // Create a new express application instance
 const app = express()
@@ -21,13 +23,16 @@ const origin =
     ? 'http://localhost:3000'
     : `http://${process.env.PROJECT_NAME}-frontend.bridgeschoolapp.io`
 
+
 logger.info('🤖 Initializing middleware')
 
 // This piece of middleware creates the logs that you see when
 // you hit an endpoint in your terminal. It's here to help you debug.
 app.use(morgan('tiny', { stream: logger.stream }))
+
 app.use(bodyParser())
 app.use(cors({ origin }))
+
 app.use('/', router)
 app.use(errorHandler)
 

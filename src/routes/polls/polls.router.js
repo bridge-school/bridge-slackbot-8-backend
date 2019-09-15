@@ -10,7 +10,7 @@ const {
 const router = express.Router()
 
 router.get('/', getPollsController)
-router.post('/:id', addPollsController)
+router.post('/', addPollsController)
 router.put('/:id', updatePollsController)
 router.delete('/:id', deletePollsController)
 

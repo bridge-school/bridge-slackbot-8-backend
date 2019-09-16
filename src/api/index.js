@@ -9,6 +9,4 @@ router.use('/health', healthRouter)
 router.use('/channels', channelsRouter)
 router.use('/polls', pollsRouter)
 
-// This is just for ngrok to work -- comment out the normal path for poll -- router.use('/poll', pollRouter) and use the following path:
-// router.use('/', pollRouter)
 module.exports = router

@@ -10,7 +10,8 @@ const channelsController = async (req, res, next) => {
   const url = `https://slack.com/api/conversations.list?${params}`
 
   try {
-    const response = await axios(url).then(res => res.data.channels)
+    const result = await axios(url)
+    const response = result.data.channels
     const channels = response.map(({ id, name }) => ({ id, name }))
     res.send(channels)
   } catch (err) {

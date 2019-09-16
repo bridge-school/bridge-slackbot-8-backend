@@ -12,8 +12,9 @@ To setup a connection to the database:
 
 1. Have a look in your project slack channel for a pinned JSON file called `firebase-credentials.json`.
 2. Create a `firebase-credentials.json` file in the root directory of this repository and copy the contents from the file in the slack channel
-3. Run `yarn start:local` and if everything is running smoothly you should see no errors
-4. To test your server is running correctly, go to `http://localhost:8081/health` in your browser. If you see `{ ok: 'OK' }` then everything is running as expected. If you're not seeing this, reach out to your tech lead or mentor over slack to help you debug!
+3. Create a `.env` file in the root directory of the repository and put `PROJECT_NAME=bridge-slackbot-8` and `SLACK_AUTH_TOKEN={please ask any teammate to get the slack token}`; if you would like to test the frond-end app locally with this back-end app, you will also need to add `NODE_ENV=development` to send requests to our backend server in test
+4. Run `yarn start:local` and if everything is running smoothly you should see no errors
+5. To test your server is running correctly, go to `http://localhost:8081/health` in your browser. If you see `{ ok: 'OK' }` then everything is running as expected. If you're not seeing this, reach out to your tech lead or mentor over slack to help you debug!
 
 To query the database you will need to `require` the `db` instance that is exported from `db/index.js`. You can use the [firebase docs](https://firebase.google.com/docs/firestore/query-data/get-data) and have a look under the node.js tab for examples.
 

@@ -1,5 +1,6 @@
 {
   "name": "bridge-node-starter",
+  "license": "SEE LICENSE IN LISCENCE.md",
   "version": "0.0.0",
   "description": "Node server starter",
   "engines": {

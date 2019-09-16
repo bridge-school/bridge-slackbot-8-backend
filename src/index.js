@@ -1,4 +1,4 @@
-// require('dotenv').config()
+require('dotenv').config()
 
 const express = require('express')
 const morgan = require('morgan')
@@ -32,8 +32,19 @@ app.use(
   })
 )
 
-app.use(bodyParser())
+app.use(bodyParser.json()).use(bodyParser.urlencoded({ extended: true }))
 app.use(cors({ origin }))
 
 app.use('/', router)
 app.use(errorHandler)
+
+// Serve the application at the given port
+if (process.env.NODE_ENV !== 'test') {
+  app.listen(port, () => {
+    logger.info(`🎧 Listening at http://localhost:${port}/`)
+  })
+}
+
+module.exports = {
+  app
+}

@@ -3,6 +3,7 @@ const express = require('express')
 const {
   getPollsController,
   addPollsController,
+  getPollByIdController,
   updatePollsController,
   deletePollsController
 } = require('./polls.controller')
@@ -10,8 +11,9 @@ const {
 const router = express.Router()
 
 router.get('/', getPollsController)
+router.get('/:id', getPollByIdController)
 router.post('/', addPollsController)
-router.put('/:id', updatePollsController)
+router.post('/updateResponse', updatePollsController)
 router.delete('/:id', deletePollsController)
 
 module.exports = {

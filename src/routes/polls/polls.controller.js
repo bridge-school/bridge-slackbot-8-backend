@@ -68,7 +68,9 @@ const getPollsController = async (req, res, next) => {
         data: snapshot.docs.map(doc => {
           return {
             id: doc.id,
-            ...doc.data()
+            ...doc.data(),
+            created_at: doc._createTime._seconds,
+            updated_at: doc._updateTime._seconds
           }
         })
       })

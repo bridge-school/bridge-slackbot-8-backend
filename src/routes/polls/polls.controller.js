@@ -1,7 +1,7 @@
 const axios = require('axios')
-const { parametize } = require('../../utils/parametize')
 const db = require('../../db')
 
+const parametize = require('../../utils/parametize')
 const createSlackBlock = require('../../utils/createSlackBlock')
 
 const sendPolltoSlack = async (interactionBlock, channel) => {
@@ -46,7 +46,7 @@ const addPollsController = async (req, res, next) => {
       if (sendPolltoSlackData.ok) {
         res.status(200).json({
           id: docRef.id,
-          message: 'Poll successfully created in db and sent to slack'
+          message: 'Poll successfully created and sent to slack'
         })
       } else {
         res.status(200).json({

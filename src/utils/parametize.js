@@ -9,4 +9,4 @@ const parametize = params =>
     return (string += prefix + toInterpolate)
   }, '')
 
-module.exports = { parametize }
+module.exports = parametize

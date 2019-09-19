@@ -1,5 +1,5 @@
 const axios = require('axios')
-const { parametize } = require('../../utils/parametize')
+const parametize = require('../../utils/parametize')
 
 const channelsController = async (req, res, next) => {
   const params = parametize({
@@ -19,6 +19,4 @@ const channelsController = async (req, res, next) => {
   }
 }
 
-module.exports = {
-  channelsController
-}
+module.exports = channelsController

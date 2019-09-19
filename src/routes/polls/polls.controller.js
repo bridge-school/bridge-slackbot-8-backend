@@ -1,7 +1,7 @@
 const axios = require('axios')
-const { parametize } = require('../../utils/parametize')
 const db = require('../../db')
 
+const parametize = require('../../utils/parametize')
 const createSlackBlock = require('../../utils/createSlackBlock')
 
 const sendPolltoSlack = async (interactionBlock, channel) => {
@@ -18,11 +18,11 @@ const sendPolltoSlack = async (interactionBlock, channel) => {
     const res = await axios.post(url)
     return res.data
   } catch (err) {
-    next(err)
+    return err
   }
 }
 
-const addPollsController = async (req, res) => {
+const addPollsController = async (req, res, next) => {
   const { question, channel_name, channel_id } = req.body
   const newPoll = {
     question: question,
@@ -42,10 +42,11 @@ const addPollsController = async (req, res) => {
     .then(async docRef => {
       const block = createSlackBlock(docRef.id, question)
       const sendPolltoSlackData = await sendPolltoSlack(block, channel_id)
+
       if (sendPolltoSlackData.ok) {
         res.status(200).json({
           id: docRef.id,
-          message: 'Poll successfully created in db and sent to slack'
+          message: 'Poll successfully created and sent to slack'
         })
       } else {
         res.status(200).json({
@@ -56,12 +57,10 @@ const addPollsController = async (req, res) => {
         })
       }
     })
-    .catch(error => {
-      res.json({ error })
-    })
+    .catch(error => next(error))
 }
 
-const getPollsController = async (req, res) => {
+const getPollsController = async (req, res, next) => {
   db.collection('/polls')
     .get()
     .then(snapshot => {
@@ -74,17 +73,15 @@ const getPollsController = async (req, res) => {
         })
       })
     })
-    .catch(error => {
-      res.json({ error })
-    })
+    .catch(error => next(error))
 }
 
-const getPollByIdController = async (req, res) => {
+const getPollByIdController = async (req, res, next) => {
   db.collection('polls')
     .doc(req.params.id)
     .get()
     .then(snapshot => res.status(200).json(snapshot.data()))
-    .catch(error => res.json({ error }))
+    .catch(error => next(error))
 }
 
 const getCurrentResponse = async block_id => {
@@ -96,12 +93,12 @@ const getCurrentResponse = async block_id => {
     .then(snapshot => {
       currentResponse = snapshot.data().response
     })
-    .catch(error => console.log(error))
+    .catch(error => next(error))
 
   return currentResponse
 }
 
-const updatePollsController = async (req, res) => {
+const updatePollsController = async (req, res, next) => {
   const action = JSON.parse(req.body.payload).actions[0]
   const { block_id, value } = action
 
@@ -118,15 +115,15 @@ const updatePollsController = async (req, res) => {
       response: newResponse
     })
     .then(res.status(200).send('Poll successfully updated'))
-    .catch(error => res.json({ error }))
+    .catch(error => next(error))
 }
 
-const deletePollsController = async (req, res) => {
+const deletePollsController = async (req, res, next) => {
   db.collection('polls')
     .doc(req.params.id)
     .delete()
     .then(res.status(200).send('Poll successfully deleted'))
-    .catch(error => res.json({ error }))
+    .catch(error => next(error))
 }
 
 module.exports = {

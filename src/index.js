@@ -27,11 +27,7 @@ logger.info('🤖 Initializing middleware')
 // you hit an endpoint in your terminal. It's here to help you debug.
 app.use(morgan('tiny', { stream: logger.stream }))
 
-app.use(
-  cors({
-    origin: `http://${process.env.PROJECT_NAME}-frontend.bridgeschoolapp.io`
-  })
-)
+app.use(cors({ origin }))
 
 app.use(bodyParser.json()).use(bodyParser.urlencoded({ extended: true }))
 app.use(cors({ origin }))
